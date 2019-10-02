@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'social_django',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -117,6 +120,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+INTERNAL_IPS = ("127.0.0.1",)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -128,6 +132,10 @@ AUTHENTICATION_BACKENDS = [
      'django.contrib.auth.backends.ModelBackend',
 ]
 
-SOCIAL_AUTH_TWITTER_KEY = 'tOaNQ4mCff3W6zqCMUPhGiH8B' #Consumer Key (API Key)
-SOCIAL_AUTH_TWITTER_SECRET = 'uUlCntHp7NCDWdcLNtgGHYfXAdBni0kPsKhKMgqLasXVL52RZG' # Consumer Secret (API Secret)
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/user/top' #リダイレクトURL
+env = environ.Env(DEBUG=(bool,False))
+env.read_env('.env')
+
+SOCIAL_AUTH_TWITTER_KEY = env.get_value('SOCIAL_AUTH_TWITTER_KEY',str) #Consumer Key (API Key)
+SOCIAL_AUTH_TWITTER_SECRET = env.get_value('SOCIAL_AUTH_TWITTER_SECRET',str) #Consumer Key (API Key)
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = env.get_value('SOCIAL_AUTH_LOGIN_REDIRECT_URL',str) #リダイレクトURL
+DEBUG = env('DEBUG')
