@@ -4,7 +4,7 @@
 </head>
 <body>
     <div>
-        <a href="/user/logout"><button type="button" >ログアウト</button></a>
+        <a href="/user/top/{{user.twitterId}}"><button type="button" >トップへ</button></a>
     </div>
 <div>
     <div>
@@ -15,9 +15,7 @@
         <p><b>OAuthToken</b>:{{ user.access_token.oauth_token }}</p>
         <p><b>AuthTime</b>:{{ user.extra_data.auth_time }}</p>
       -->
-      {% for tweet in tweets %}
-        <p><b>自分のツイート</b>：{{ tweet }}</p>
-      {% endfor %}
+
 
 
     </div>
