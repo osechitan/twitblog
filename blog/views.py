@@ -14,8 +14,6 @@ def top_page(request):
     #oauth_token_secret = user.access_token['oauth_token_secret']
     user = createNewUser(request)
     #user = User.objects.filter(twitterId)
-    print(User.objects.all())
-
     url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
     env = environ.Env(DEBUG=(bool,False))
     env.read_env('.env')
