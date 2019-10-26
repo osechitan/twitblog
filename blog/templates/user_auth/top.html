@@ -8,6 +8,16 @@
     </div>
 <div>
     <div>
+      <p>
+            {% if user and not user.is_anonymous %}
+                Hello {{ user.get_full_name|default:user.username }}!
+                {% for tweet in tweets %}
+                  <p><b>自分のツイート</b>：{{ tweet }}</p>
+                {% endfor %}
+            {% else %}
+                ログインして下さい.
+            {% endif %}
+        </p>
       <!--
       <p><b>ScreenName</b>:{{ user.access_token.screen_name }}</p>
         <p><b>UserId</b>:{{ user.access_token.user_id }}</p>
@@ -15,9 +25,7 @@
         <p><b>OAuthToken</b>:{{ user.access_token.oauth_token }}</p>
         <p><b>AuthTime</b>:{{ user.extra_data.auth_time }}</p>
       -->
-      {% for tweet in tweets %}
-        <p><b>自分のツイート</b>：{{ tweet }}</p>
-      {% endfor %}
+
 
 
     </div>
