@@ -10,7 +10,7 @@
     <div>
       <p>
             {% if user and not user.is_anonymous %}
-                Hello {{ user.get_full_name|default:user.username }}!
+                Hello {{ name }}!
                 {% for tweet in tweets %}
                   <p><b>自分のツイート</b>：{{ tweet }}</p>
                 {% endfor %}

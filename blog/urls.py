@@ -7,8 +7,8 @@ app_name='blog'
 
 urlpatterns=[
     path('top/',views.top_page, name="top"), # リダイレクト
-    #path('top/<slug>/', views.top_page, name="top"),
     url( r'^login/$',auth_views.LoginView.as_view(template_name="user_auth/login.html"), name="login"),
     url( r'^logout/$',auth_views.LogoutView.as_view(template_name="user_auth/login.html"), name="logout"),
-    #path('login_complete/',views.top_page, name="top"),
+    #path('login_complete/',views.top_page, name="login_complete"),
+    path('<slug>/', views.my_page, name="my_page"),
 ]
