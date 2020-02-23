@@ -4,7 +4,7 @@ from . import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('user/', include('blog.urls')),
+    # path('user/', include('blog.urls')),
     path('user/', include('social_django.urls', namespace='social')),
 ]
 
