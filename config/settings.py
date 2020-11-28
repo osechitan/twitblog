@@ -26,7 +26,7 @@ SECRET_KEY = 'em_b1rk$ix!ib!t^lmb7io0o5v_io%(wt4b*2o9k@ec7+d$f(='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -132,11 +132,11 @@ AUTHENTICATION_BACKENDS = [
      'django.contrib.auth.backends.ModelBackend',
 ]
 
-env = environ.Env(DEBUG=(bool,False))
-env.read_env('.env')
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
 
 SOCIAL_AUTH_TWITTER_KEY = env.get_value('SOCIAL_AUTH_TWITTER_KEY',str) #Consumer Key (API Key)
 SOCIAL_AUTH_TWITTER_SECRET = env.get_value('SOCIAL_AUTH_TWITTER_SECRET',str) #Consumer Key (API Key)
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = env.get_value('SOCIAL_AUTH_LOGIN_REDIRECT_URL',str) #リダイレクトURL
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/user/top'
+#SOCIAL_AUTH_LOGIN_REDIRECT_URL = env.get_value('SOCIAL_AUTH_LOGIN_REDIRECT_URL',str) #リダイレクトURL
 #SOCIAL_AUTH_LOGIN_COMPLETE_REDIRECT_URL = env.get_value('SOCIAL_AUTH_LOGIN_REDIRECT_URL',str)
-DEBUG = env('DEBUG')

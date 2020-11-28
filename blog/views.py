@@ -10,13 +10,14 @@ from django.http import HttpResponse
 
 
 def top_page(request):
+    print(request.user.id)
     context = get_user_tweets(request.user.id)
     return render(request,'user_auth/top.html',context)
 
 
 def get_user_tweets(user_id):
     url = 'https://api.twitter.com/1.1/statuses/user_timeline.json'
-    env = environ.Env(DEBUG=(bool, False))
+    env = environ.Env()
     env.read_env('.env')
 
     params = {
@@ -26,7 +27,7 @@ def get_user_tweets(user_id):
         'trim_user': False,
         'tweet_mode': 'extended',
     }
-    user = UserSocialAuth.objects.get(user_id)
+    user = UserSocialAuth.objects.get(user_id=1)
     # oauth認証開始
     twitter = OAuth1Session(
         env.get_value('SOCIAL_AUTH_TWITTER_KEY', str),
@@ -40,7 +41,7 @@ def get_user_tweets(user_id):
         results = json.loads(response.text)
         tweets_text = []
         count = 0
-        #ツイートを20件表示
+        # ツイートを20件表示
         for tweet in results:
             tweets_text.append(tweet['full_text'])
             count += 1
@@ -49,6 +50,6 @@ def get_user_tweets(user_id):
     else:
         print('通信失敗')
 
-    context = {'tweets':tweets_text, 'name':results[0]['user']['name']}
+    context = {'tweets': tweets_text, 'name': results[0]['user']['name']}
 
     return context
